@@ -11,7 +11,7 @@ import (
 
 	"github.com/caddyserver/caddy/v2"
 	"github.com/caddyserver/caddy/v2/modules/caddyhttp"
-	diagrams "github.com/frinknet/caddy-diagrams/pkg/goldmark-diagrams"
+	diagrams "github.com/goldmark-diagrams/goldmark-diagrams"
 )
 
 func init() {

@@ -5,7 +5,7 @@ import (
 	"context"
 	"strings"
 
-	diagrams "github.com/frinknet/caddy-diagrams/pkg/goldmark-diagrams"
+	diagrams "github.com/goldmark-diagrams/goldmark-diagrams"
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/parser"

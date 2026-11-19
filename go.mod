@@ -3,14 +3,12 @@ module github.com/frinknet/caddy-diagrams
 go 1.26.0
 
 require (
-	github.com/Broderick-Westrope/pele-go v0.2.0
 	github.com/caddyserver/caddy/v2 v2.11.9
-	github.com/go-analyze/charts v0.6.4
+	github.com/goldmark-diagrams/goldmark-diagrams v1.0.13
 	github.com/yuin/goldmark v1.8.7
-	gopkg.in/yaml.v3 v3.0.1
-	oss.terrastruct.com/d2 v0.7.2
-	oss.terrastruct.com/util-go v0.1.0
 )
+
+replace github.com/goldmark-diagrams/goldmark-diagrams => github.com/frinknet/goldmark-diagrams v1.0.13
 
 require (
 	cel.dev/cel-go v0.32.0 // indirect
@@ -22,6 +20,7 @@ require (
 	filippo.io/bigmod v0.1.0 // indirect
 	filippo.io/edwards25519 v1.2.0 // indirect
 	github.com/AndreasBriese/bbloom v0.0.0-20190825152654-46b345b51c96 // indirect
+	github.com/Broderick-Westrope/pele-go v0.2.0 // indirect
 	github.com/KimMachineGun/automemlimit v1.0.0 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.5.0 // indirect
@@ -55,6 +54,7 @@ require (
 	github.com/dustin/go-humanize v1.1.0 // indirect
 	github.com/felixge/httpsnoop v1.1.0 // indirect
 	github.com/go-analyze/bulk v0.1.6 // indirect
+	github.com/go-analyze/charts v0.6.4 // indirect
 	github.com/go-jose/go-jose/v3 v3.0.5 // indirect
 	github.com/go-jose/go-jose/v4 v4.1.6 // indirect
 	github.com/go-logr/logr v1.4.4 // indirect
@@ -169,5 +169,8 @@ require (
 	google.golang.org/grpc v1.83.2 // indirect
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.6.2 // indirect
 	google.golang.org/protobuf v1.36.12 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 	howett.net/plist v1.0.1 // indirect
+	oss.terrastruct.com/d2 v0.7.2 // indirect
+	oss.terrastruct.com/util-go v0.0.0-20250213174338-243d8661088a // indirect
 )

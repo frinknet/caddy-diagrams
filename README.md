@@ -167,30 +167,34 @@ docker run --rm -v caddy-sf-mod:/mod -v "$PWD":/src -w /src \
   sh -c 'apk add --no-cache gcc musl-dev && go test -race -timeout=180s ./...'
 ```
 
-## Vendored renderer
+## Renderer dependency
 
-`pkg/goldmark-diagrams` is a vendored copy of the upstream module. The upstream
-`go.mod` declares `github.com/goldmark-diagrams/goldmark-diagrams`, but the
-repository is published at `github.com/frinknet/goldmark-diagrams`; the module
-path does not resolve. Vendoring keeps the Caddy build reproducible without a
-`replace` directive that `xcaddy` would drop. The import paths are rewritten to
-`github.com/frinknet/caddy-diagrams/pkg/goldmark-diagrams`.
+The renderer is the upstream
+[`goldmark-diagrams`](https://github.com/frinknet/goldmark-diagrams) module,
+imported as `github.com/goldmark-diagrams/goldmark-diagrams`. The upstream
+`go.mod` declares that path, but the repository is published at
+`github.com/frinknet/goldmark-diagrams`, so `go.mod` maps the declared path onto
+the published one:
 
-Only library files are vendored: `diagrams.go`, `assets/`, and `pkg/`. The
-upstream Dockerfile, build scripts, CLI, docs, and testdata are omitted.
+```go
+require github.com/goldmark-diagrams/goldmark-diagrams v1.0.13
 
-To refresh the copy, check out the upstream revision, then copy those paths into
-`pkg/goldmark-diagrams/` and rewrite the imports:
-
-```sh
-cp upstream/diagrams.go pkg/goldmark-diagrams/
-cp -R upstream/assets upstream/pkg pkg/goldmark-diagrams/
-grep -rl 'github.com/goldmark-diagrams/goldmark-diagrams' pkg/goldmark-diagrams \
-  | xargs sed -i 's#github.com/goldmark-diagrams/goldmark-diagrams#github.com/frinknet/caddy-diagrams/pkg/goldmark-diagrams#g'
+replace github.com/goldmark-diagrams/goldmark-diagrams => github.com/frinknet/goldmark-diagrams v1.0.13
 ```
 
-Drop upstream packages or files that are not imported by the renderer, then run
-`sh test/unit.sh`, `./build.sh`, and `sh test/e2e.sh`.
+`xcaddy` builds the plugin as a dependency, and Go ignores `replace` directives
+from dependency modules, so the image build passes the same mapping explicitly:
+
+```sh
+xcaddy build \
+  --with github.com/frinknet/caddy-diagrams \
+  --replace github.com/frinknet/caddy-diagrams=/src \
+  --replace github.com/goldmark-diagrams/goldmark-diagrams=github.com/frinknet/goldmark-diagrams@v1.0.13
+```
+
+To upgrade the renderer, bump both the `require` and the `replace` version, run
+`go mod tidy` in the builder container, then run `sh test/unit.sh`, `./build.sh`,
+and `sh test/e2e.sh`.
 
 ## License
 
