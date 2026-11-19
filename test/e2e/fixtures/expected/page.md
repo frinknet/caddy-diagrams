@@ -1,0 +1,142 @@
+<style>/* goldmark-diagrams reference stylesheet (diagrams.DefaultCSS()).
+   One palette, one set of hooks: every diagram type the extension emits is
+   mapped onto the --diagram-* custom properties below, so theming an ECharts bar
+   chart, a D2 architecture diagram and a Mermaid kanban board is the same
+   three-line override. */
+
+.svg-diagram {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+
+  /* The shared palette. Without this stylesheet each engine's own default is
+     used instead, because every mapped paint carries it as a var() fallback. */
+  --diagram-bg: transparent;
+  --diagram-fg: #1e293b;
+  --diagram-muted: #64748b;
+  --diagram-border: #cbd5e1;
+  --diagram-line: #94a3b8;
+  --diagram-surface: #ffffff;
+  --diagram-surface-alt: #f1f5f9;
+  --diagram-accent: #5470c6;
+  --diagram-series-0: #5470c6;
+  --diagram-series-1: #91cc75;
+  --diagram-series-2: #fac858;
+  --diagram-series-3: #ee6666;
+  --diagram-series-4: #73c0de;
+  --diagram-series-5: #3ba272;
+  --diagram-series-6: #fc8452;
+  --diagram-series-7: #9a60b4;
+
+  /* Error cards reuse the palette with their own accents. */
+  --diagram-error-bg: #fef2f2;
+  --diagram-error-border: #fca5a5;
+  --diagram-error-fg: #b91c1c;
+}
+
+.svg-diagram-svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Dark palette: follows the reader's preference, or an explicit
+   data-theme="dark" from the fence info string. */
+@media (prefers-color-scheme: dark) {
+  .svg-diagram {
+    --diagram-fg: #e2e8f0;
+    --diagram-muted: #94a3b8;
+    --diagram-border: #475569;
+    --diagram-line: #64748b;
+    --diagram-surface: #1e293b;
+    --diagram-surface-alt: #334155;
+    --diagram-accent: #73c0de;
+    --diagram-error-bg: #450a0a;
+    --diagram-error-border: #7f1d1d;
+    --diagram-error-fg: #fca5a5;
+  }
+}
+
+.svg-diagram[data-theme="dark"] {
+  --diagram-fg: #e2e8f0;
+  --diagram-muted: #94a3b8;
+  --diagram-border: #475569;
+  --diagram-line: #64748b;
+  --diagram-surface: #1e293b;
+  --diagram-surface-alt: #334155;
+  --diagram-accent: #73c0de;
+  --diagram-error-bg: #450a0a;
+  --diagram-error-border: #7f1d1d;
+  --diagram-error-fg: #fca5a5;
+}
+
+/* Pure-CSS sibling dimming on hover, for every diagram type. The trailing :not()
+   keeps an item's own ancestors undimmed, because venn sets and clustered
+   Mermaid nodes legitimately nest inside one another. */
+.svg-diagram-svg:has([data-item]:hover) [data-item]:not(:hover):not(:has([data-item]:hover)) {
+  opacity: 0.35;
+  transition: opacity 150ms ease;
+}
+
+.svg-diagram-svg:has([data-card-id]:hover) [data-card-id]:not(:hover) {
+  opacity: 0.5;
+  transition: opacity 150ms ease;
+}
+
+.svg-diagram-svg [data-item]:hover,
+.svg-diagram-svg [data-card-id]:hover {
+  filter: brightness(1.08);
+  cursor: pointer;
+}
+
+/* Animated dashed flow connectors. */
+@keyframes gm-dash-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.svg-diagram-svg path[stroke-dasharray] {
+  animation: gm-dash-flow 1.2s linear infinite;
+}
+
+/* Server feedback loop: a click listener reads data-card-id/data-column-id and
+   POSTs the move, so the affordance is announced in CSS only. */
+.svg-diagram-svg [data-card-id] {
+  cursor: grab;
+}
+
+.svg-diagram-svg [data-card-id]:active {
+  cursor: grabbing;
+}
+
+/* Error cards are diagrams too. */
+.svg-diagram-error {
+  overflow: visible;
+}
+
+/* Hook reference for authors styling individual pieces. Every engine emits the
+   same class vocabulary, so one rule styles a type across all of them:
+     .svg-node .svg-edge .svg-cluster .svg-commit .svg-branch .svg-task .svg-slice
+     .svg-point .svg-venn-set .svg-venn-region                    (Mermaid)
+     .svg-shape .svg-connection                                 (D2, DOT, PlantUML)
+     .svg-mark .svg-series-0 .. .svg-series-7                    (charts)
+     .svg-column .svg-card                                      (kanban)
+   The data-role attributes carry the same names for client-side handlers.
+   Per-series colour is already applied through --diagram-series-N, so overriding the
+   palette above is normally all that is needed. */
+
+@media (prefers-reduced-motion: reduce) {
+  .svg-diagram-svg path[stroke-dasharray] {
+    animation: none;
+  }
+
+  .svg-diagram-svg:has([data-item]:hover) [data-item]:not(:hover):not(:has([data-item]:hover)),
+  .svg-diagram-svg:has([data-card-id]:hover) [data-card-id]:not(:hover) {
+    transition: none;
+  }
+}
+</style>
+<h1 id="diagrams">Diagrams</h1>
+<p>A page with a diagram.</p>
+<figure class="svg-diagram" data-lang="mermaid" data-engine="pele" data-theme="auto" data-hash="ac737d5f"><svg xmlns="http://www.w3.org/2000/svg" class="pele pele-flowchart svg-diagram-svg" viewBox="0 0 160 64" style="max-width:100%;height:auto;--_bg:var(--pele-bg,#fff);--_fg:var(--pele-fg,#1f1f1f);--_m:var(--pele-muted,#6e6e6e);--_l:var(--pele-line,#1f1f1f);--_s:var(--pele-surface,#f3f3f3);--_a:var(--pele-surface-alt,#e6e6e6);--_b:var(--pele-border,#8a8a8a);--_c:var(--pele-accent,#5b7bd5);color:var(--_fg);--_r:var(--pele-radius,4px);--_fm:var(--pele-font-mono,monospace);font:16px sans-serif;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;font-family:var(--pele-font,sans-serif);--pele-bg:var(--diagram-surface,#fff);--pele-fg:var(--diagram-fg,#1f1f1f);--pele-muted:var(--diagram-muted,#6e6e6e);--pele-line:var(--diagram-line,#1f1f1f);--pele-surface:var(--diagram-surface-alt,#f3f3f3);--pele-surface-alt:var(--diagram-surface-alt,#e6e6e6);--pele-border:var(--diagram-border,#8a8a8a);--pele-accent:var(--diagram-accent,#5b7bd5)" fill="var(--_fg)" role="img" aria-roledescription="flowchart" aria-label="mermaid diagram"><g class="pele-edges" fill="none" stroke="var(--_l)" stroke-linecap="round"><g class="pele-edge svg-edge" data-id="L_A_B_0" data-item="L_A_B_0" data-role="edge"><path d="M56,32L97,32"><path class="pele-marker" d="M104,32L96,35.36L96,28.64Z" fill="var(--_l)" stroke="none"></g></g><g class="pele-nodes"><g class="pele-node pele-shape-rect svg-node" data-id="A" transform="translate(32,32)" data-item="A" data-role="node"><title>A</title><rect x="-24" y="-24" width="48" height="48" fill="var(--_s)" stroke="var(--_b)" style="rx:var(--_r)"><text class="pele-label" x="0" y="5.6" text-anchor="middle">A</text></g><g class="pele-node pele-shape-rect svg-node" data-id="B" transform="translate(128,32)" data-item="B" data-role="node"><title>B</title><rect x="-24" y="-24" width="48" height="48" fill="var(--_s)" stroke="var(--_b)" style="rx:var(--_r)"><text class="pele-label" x="0" y="5.6" text-anchor="middle">B</text></g></g></svg></figure>

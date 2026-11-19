@@ -1,0 +1,46 @@
+{
+	admin off
+}
+
+:80 {
+	root * /srv/www
+
+	handle /_diagrams/diagrams.css {
+		diagram css
+	}
+
+	handle /flow.mmd {
+		diagram auto
+	}
+
+	handle /flow.d2 {
+		diagram auto
+	}
+
+	handle /fail.mmd {
+		diagram auto {
+			error_mode fail
+		}
+	}
+
+	handle /page.md {
+		diagram markdown
+	}
+
+	handle /plain.md {
+		diagram markdown
+	}
+
+	handle /template.html {
+		templates {
+			extensions {
+				diagram
+			}
+		}
+		file_server
+	}
+
+	handle {
+		file_server
+	}
+}

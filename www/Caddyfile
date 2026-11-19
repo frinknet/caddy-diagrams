@@ -1,0 +1,24 @@
+{
+	admin off
+}
+
+:80 {
+	root * /srv/www
+	encode gzip
+
+	handle /_diagrams/diagrams.css {
+		diagram css
+	}
+
+	handle /flow.mmd {
+		diagram auto
+	}
+
+	handle /index.md {
+		diagram markdown
+	}
+
+	handle {
+		file_server
+	}
+}
