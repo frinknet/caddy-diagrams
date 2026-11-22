@@ -171,16 +171,6 @@ docker run --rm -v caddy-sf-mod:/mod -v "$PWD":/src -w /src \
 
 The renderer is the upstream
 [`goldmark-diagrams`](https://github.com/frinknet/goldmark-diagrams) module,
-imported as `github.com/goldmark-diagrams/goldmark-diagrams`. The upstream
-`go.mod` declares that path, but the repository is published at
-`github.com/frinknet/goldmark-diagrams`, so `go.mod` maps the declared path onto
-the published one:
-
-```go
-require github.com/goldmark-diagrams/goldmark-diagrams v1.0.13
-
-replace github.com/goldmark-diagrams/goldmark-diagrams => github.com/frinknet/goldmark-diagrams v1.0.13
-```
 
 `xcaddy` builds the plugin as a dependency, and Go ignores `replace` directives
 from dependency modules, so the image build passes the same mapping explicitly:
@@ -189,7 +179,6 @@ from dependency modules, so the image build passes the same mapping explicitly:
 xcaddy build \
   --with github.com/frinknet/caddy-diagrams \
   --replace github.com/frinknet/caddy-diagrams=/src \
-  --replace github.com/goldmark-diagrams/goldmark-diagrams=github.com/frinknet/goldmark-diagrams@v1.0.13
 ```
 
 To upgrade the renderer, bump both the `require` and the `replace` version, run

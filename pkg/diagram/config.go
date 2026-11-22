@@ -19,7 +19,7 @@ import (
 	"time"
 
 	"github.com/caddyserver/caddy/v2"
-	diagrams "github.com/goldmark-diagrams/goldmark-diagrams"
+	diagrams "github.com/frinket/goldmark-diagrams"
 )
 
 const (

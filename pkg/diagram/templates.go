@@ -6,7 +6,7 @@ import (
 	"html/template"
 
 	"github.com/caddyserver/caddy/v2"
-	diagrams "github.com/goldmark-diagrams/goldmark-diagrams"
+	diagrams "github.com/frinknet/goldmark-diagrams"
 )
 
 func init() {

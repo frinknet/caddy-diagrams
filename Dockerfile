@@ -38,7 +38,6 @@ RUN --mount=type=cache,id=gomod,target=/go/pkg/mod \
     xcaddy build \
     --with github.com/frinknet/caddy-diagrams \
     --replace github.com/frinknet/caddy-diagrams=/src \
-    --replace github.com/goldmark-diagrams/goldmark-diagrams=github.com/frinknet/goldmark-diagrams@v1.0.13 \
     --output /out/caddy
 
 # collect the licenses of caddy and every plugin linked into the binary
