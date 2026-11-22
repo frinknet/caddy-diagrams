@@ -4,11 +4,9 @@ go 1.26.0
 
 require (
 	github.com/caddyserver/caddy/v2 v2.11.9
-	github.com/frinknet/goldmark-diagrams v1.0.13
+	github.com/frinknet/goldmark-diagrams v1.0.14
 	github.com/yuin/goldmark v1.8.7
 )
-
-replace github.com/frinknet/goldmark-diagrams v1.0.13
 
 require (
 	cel.dev/cel-go v0.32.0 // indirect

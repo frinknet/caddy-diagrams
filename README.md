@@ -181,7 +181,7 @@ xcaddy build \
   --replace github.com/frinknet/caddy-diagrams=/src \
 ```
 
-To upgrade the renderer, bump both the `require` and the `replace` version, run
+To upgrade the renderer, bump the `require` version, run
 `go mod tidy` in the builder container, then run `sh test/unit.sh`, `./build.sh`,
 and `sh test/e2e.sh`.
 
